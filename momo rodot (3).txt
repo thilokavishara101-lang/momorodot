@@ -1,0 +1,270 @@
+// =====================================
+// MOMO ESP32 ADDRESS
+// =====================================
+
+// ESP32 එකේ IP address එක මෙතන දාන්න.
+// Example:
+// http://192.168.4.1
+
+const ESP32 = "http://192.168.4.1";
+
+
+// =====================================
+// SEND COMMAND
+// =====================================
+
+async function sendCommand(url) {
+
+    try {
+
+        const response =
+            await fetch(ESP32 + url);
+
+        if (!response.ok) {
+            throw new Error("ESP32 error");
+        }
+
+        const data =
+            await response.json();
+
+        return data;
+
+    } catch (error) {
+
+        console.log(error);
+
+        setOffline();
+
+        return null;
+    }
+}
+
+
+// =====================================
+// EMOTION
+// =====================================
+
+async function sendEmotion(emotion) {
+
+    const data =
+        await sendCommand(
+            "/emotion?name=" +
+            encodeURIComponent(emotion)
+        );
+
+    if (!data) return;
+
+    document.getElementById(
+        "currentEmotion"
+    ).textContent =
+        emotion.toUpperCase();
+
+    document.getElementById(
+        "statusEmotion"
+    ).textContent =
+        emotion;
+
+    document.getElementById(
+        "momoMessage"
+    ).textContent =
+        getMessage(emotion);
+
+    setOnline();
+}
+
+
+// =====================================
+// EMOTION MESSAGES
+// =====================================
+
+function getMessage(emotion) {
+
+    const messages = {
+
+        happy:
+            "MOMO is feeling happy! 😊",
+
+        laughing:
+            "MOMO can't stop laughing 😂",
+
+        loving:
+            "MOMO loves you ❤️",
+
+        sad:
+            "MOMO is feeling a little sad 😢",
+
+        angry:
+            "MOMO is annoyed! 😡",
+
+        sleepy:
+            "MOMO wants to sleep 😴",
+
+        surprised:
+            "Whoa! What happened?! 😲",
+
+        excited:
+            "MOMO is super excited! 🤩",
+
+        thinking:
+            "MOMO is thinking... 🤔",
+
+        cool:
+            "MOMO is feeling cool 😎",
+
+        confused:
+            "MOMO is confused... 😵",
+
+        bored:
+            "MOMO is bored 😑"
+    };
+
+    return messages[emotion]
+        || "MOMO is alive! 🤖";
+}
+
+
+// =====================================
+// SERVO
+// =====================================
+
+async function moveHead(direction) {
+
+    const data =
+        await sendCommand(
+            "/head?direction=" +
+            direction
+        );
+
+    if (data) {
+        setOnline();
+    }
+}
+
+
+// =====================================
+// EVENTS
+// =====================================
+
+async function sendEvent(event) {
+
+    const data =
+        await sendCommand(
+            "/event?name=" +
+            encodeURIComponent(event)
+        );
+
+    if (data) {
+
+        document.getElementById(
+            "momoMessage"
+        ).textContent =
+            "MOMO is celebrating " +
+            event +
+            "! 🎉";
+
+        setOnline();
+    }
+}
+
+
+// =====================================
+// SETTINGS
+// =====================================
+
+async function saveSettings() {
+
+    const name =
+        document.getElementById(
+            "momoName"
+        ).value;
+
+    const personality =
+        document.getElementById(
+            "personality"
+        ).value;
+
+    await sendCommand(
+        "/settings?name=" +
+        encodeURIComponent(name) +
+        "&personality=" +
+        encodeURIComponent(personality)
+    );
+
+    document.getElementById(
+        "momoMessage"
+    ).textContent =
+        "Settings saved! ❤️";
+}
+
+
+// =====================================
+// STATUS
+// =====================================
+
+async function updateStatus() {
+
+    const data =
+        await sendCommand("/status");
+
+    if (!data) return;
+
+    document.getElementById(
+        "battery"
+    ).textContent =
+        data.battery + "%";
+
+    document.getElementById(
+        "wifi"
+    ).textContent =
+        "Connected";
+
+    document.getElementById(
+        "statusEmotion"
+    ).textContent =
+        data.emotion;
+
+    document.getElementById(
+        "currentEmotion"
+    ).textContent =
+        data.emotion.toUpperCase();
+
+    setOnline();
+}
+
+
+function setOnline() {
+
+    document.getElementById(
+        "statusDot"
+    ).style.background =
+        "#38e078";
+
+    document.getElementById(
+        "statusText"
+    ).textContent =
+        "ONLINE";
+}
+
+
+function setOffline() {
+
+    document.getElementById(
+        "statusDot"
+    ).style.background =
+        "#ff5c5c";
+
+    document.getElementById(
+        "statusText"
+    ).textContent =
+        "OFFLINE";
+}
+
+
+// Check every 5 seconds
+
+setInterval(
+    updateStatus,
+    5000
+);
+
+updateStatus();

@@ -1,0 +1,76 @@
+void handleEmotion() {
+
+    if (!server.hasArg("name")) {
+
+        server.send(
+            400,
+            "application/json",
+            "{\"error\":\"missing emotion\"}"
+        );
+
+        return;
+    }
+
+    String emotion =
+        server.arg("name");
+
+    currentEmotion =
+        emotion;
+
+    // මෙතන ඔයාගේ emotion function
+    // call කරන්න.
+
+    if (emotion == "happy") {
+        setEmotion(HAPPY);
+    }
+
+    else if (emotion == "laughing") {
+        setEmotion(LAUGHING);
+    }
+
+    else if (emotion == "loving") {
+        setEmotion(LOVING);
+    }
+
+    else if (emotion == "sad") {
+        setEmotion(SAD);
+    }
+
+    else if (emotion == "angry") {
+        setEmotion(ANGRY);
+    }
+
+    else if (emotion == "sleepy") {
+        setEmotion(SLEEPY);
+    }
+
+    else if (emotion == "surprised") {
+        setEmotion(SURPRISED);
+    }
+
+    else if (emotion == "excited") {
+        setEmotion(EXCITED);
+    }
+
+    else if (emotion == "thinking") {
+        setEmotion(THINKING);
+    }
+
+    else if (emotion == "cool") {
+        setEmotion(COOL);
+    }
+
+    else if (emotion == "confused") {
+        setEmotion(CONFUSED);
+    }
+
+    else if (emotion == "bored") {
+        setEmotion(BORED);
+    }
+
+    server.send(
+        200,
+        "application/json",
+        "{\"success\":true}"
+    );
+}

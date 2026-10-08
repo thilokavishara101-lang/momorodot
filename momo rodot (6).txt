@@ -1,0 +1,17 @@
+void handleStatus() {
+
+    String json = "{";
+
+    json += "\"battery\":85,";
+    json += "\"emotion\":\"";
+    json += currentEmotion;
+    json += "\"";
+
+    json += "}";
+
+    server.send(
+        200,
+        "application/json",
+        json
+    );
+}

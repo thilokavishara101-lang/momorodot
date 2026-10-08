@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>MOMO • Emotional Robot</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="topbar">
+
+        <div class="brand">
+            <div class="logo">🤖</div>
+
+            <div>
+                <h1>MOMO</h1>
+                <p>Emotional Robot</p>
+            </div>
+        </div>
+
+        <div class="status">
+            <span id="statusDot"></span>
+            <span id="statusText">Connecting...</span>
+        </div>
+
+    </header>
+
+
+    <main class="container">
+
+        <!-- MOMO FACE -->
+
+        <section class="hero">
+
+            <div class="robot-card">
+
+                <div class="face">
+
+                    <div class="eye left-eye">
+                        <div class="pupil"></div>
+                    </div>
+
+                    <div class="eye right-eye">
+                        <div class="pupil"></div>
+                    </div>
+
+                    <div class="mouth"></div>
+
+                </div>
+
+                <h2 id="currentEmotion">NORMAL</h2>
+
+                <p id="momoMessage">
+                    Hi! I'm MOMO 👋
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- EMOTIONS -->
+
+        <section class="panel">
+
+            <h2>❤️ Emotions</h2>
+
+            <div class="emotion-grid">
+
+                <button onclick="sendEmotion('happy')">
+                    😊
+                    <span>Happy</span>
+                </button>
+
+                <button onclick="sendEmotion('laughing')">
+                    😂
+                    <span>Laugh</span>
+                </button>
+
+                <button onclick="sendEmotion('loving')">
+                    ❤️
+                    <span>Love</span>
+                </button>
+
+                <button onclick="sendEmotion('sad')">
+                    😢
+                    <span>Sad</span>
+                </button>
+
+                <button onclick="sendEmotion('angry')">
+                    😡
+                    <span>Angry</span>
+                </button>
+
+                <button onclick="sendEmotion('sleepy')">
+                    😴
+                    <span>Sleep</span>
+                </button>
+
+                <button onclick="sendEmotion('surprised')">
+                    😲
+                    <span>Surprise</span>
+                </button>
+
+                <button onclick="sendEmotion('excited')">
+                    🤩
+                    <span>Excited</span>
+                </button>
+
+                <button onclick="sendEmotion('thinking')">
+                    🤔
+                    <span>Thinking</span>
+                </button>
+
+                <button onclick="sendEmotion('cool')">
+                    😎
+                    <span>Cool</span>
+                </button>
+
+                <button onclick="sendEmotion('confused')">
+                    😵
+                    <span>Confused</span>
+                </button>
+
+                <button onclick="sendEmotion('bored')">
+                    😑
+                    <span>Bored</span>
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- STATUS -->
+
+        <section class="stats">
+
+            <div class="stat-card">
+
+                <div class="stat-icon">🔋</div>
+
+                <div>
+                    <small>Battery</small>
+                    <strong id="battery">--%</strong>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">📡</div>
+
+                <div>
+                    <small>Connection</small>
+                    <strong id="wifi">--</strong>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">😊</div>
+
+                <div>
+                    <small>Emotion</small>
+                    <strong id="statusEmotion">Normal</strong>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SERVO CONTROL -->
+
+        <section class="panel">
+
+            <h2>🤖 Head Control</h2>
+
+            <div class="servo-buttons">
+
+                <button onclick="moveHead('left')">
+                    ◀ Left
+                </button>
+
+                <button onclick="moveHead('center')">
+                    ● Center
+                </button>
+
+                <button onclick="moveHead('right')">
+                    Right ▶
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- EVENTS -->
+
+        <section class="panel">
+
+            <h2>🎉 Special Events</h2>
+
+            <div class="event-grid">
+
+                <button onclick="sendEvent('birthday')">
+                    🎂 Birthday
+                </button>
+
+                <button onclick="sendEvent('newyear')">
+                    🎆 New Year
+                </button>
+
+                <button onclick="sendEvent('christmas')">
+                    🎄 Christmas
+                </button>
+
+                <button onclick="sendEvent('vesak')">
+                    🏮 Vesak
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- SETTINGS -->
+
+        <section class="panel">
+
+            <h2>⚙️ MOMO Settings</h2>
+
+            <label>
+                MOMO Name
+                <input
+                    id="momoName"
+                    type="text"
+                    value="MOMO"
+                >
+            </label>
+
+            <label>
+                Personality
+                <select id="personality">
+                    <option value="friendly">
+                        Friendly
+                    </option>
+
+                    <option value="funny">
+                        Funny
+                    </option>
+
+                    <option value="sleepy">
+                        Sleepy
+                    </option>
+                </select>
+            </label>
+
+            <button
+                class="save-button"
+                onclick="saveSettings()"
+            >
+                Save Settings
+            </button>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+        MOMO v1.0 • Made with ESP32 ❤️
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>

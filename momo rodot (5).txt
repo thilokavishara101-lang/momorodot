@@ -1,0 +1,23 @@
+void handleHead() {
+
+    String direction =
+        server.arg("direction");
+
+    if (direction == "left") {
+        headServo.write(60);
+    }
+
+    else if (direction == "center") {
+        headServo.write(90);
+    }
+
+    else if (direction == "right") {
+        headServo.write(120);
+    }
+
+    server.send(
+        200,
+        "application/json",
+        "{\"success\":true}"
+    );
+}

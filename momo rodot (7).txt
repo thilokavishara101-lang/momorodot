@@ -1,0 +1,21 @@
+server.on(
+    "/emotion",
+    HTTP_GET,
+    handleEmotion
+);
+
+server.on(
+    "/head",
+    HTTP_GET,
+    handleHead
+);
+
+server.on(
+    "/status",
+    HTTP_GET,
+    handleStatus
+);
+
+server.begin();
+
+Serial.println("MOMO Web Server Started");
